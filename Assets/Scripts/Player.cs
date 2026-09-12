@@ -1,4 +1,7 @@
+using TMPro;
 using UnityEngine;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +17,9 @@ public class Player : MonoBehaviour
     public LayerMask groundLayer;
 
     private Animator animator;
+
+    private int coins;
+    public TMP_Text textCoins;
 
     void Start()
     {
@@ -57,6 +63,14 @@ public class Player : MonoBehaviour
         if (collision.transform.CompareTag("Coin"))
         {
             Destroy(collision.gameObject);
+            coins ++;
+            textCoins.text = coins.ToString();
+        }
+
+        // 6. Trampas: si al colisionar con la trampa 
+        if (collision.transform.CompareTag("Spikes"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }
